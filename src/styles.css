@@ -122,3 +122,64 @@
   text-transform: uppercase;
   color: var(--color-muted-foreground);
 }
+
+/* --- bold layer --- */
+
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: radial-gradient(
+      var(--color-foreground) 0.5px,
+      transparent 0.5px
+    );
+    background-size: 3px 3px;
+  }
+}
+
+@utility ember-wash {
+  background:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      oklch(0.68 0.2 42 / 0.32) 0%,
+      transparent 60%
+    ),
+    var(--color-background);
+}
+
+@utility display-hero {
+  font-family: var(--font-display);
+  font-size: clamp(3.75rem, 22vw, 6rem);
+  line-height: 0.82;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+@utility stat-huge {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  line-height: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility hairline-grid {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-3xl);
+  overflow: hidden;
+  & > * {
+    border-right: 1px solid var(--color-border);
+  }
+  & > *:last-child {
+    border-right: 0;
+  }
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-border-strong);
+}
+
