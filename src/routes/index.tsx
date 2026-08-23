@@ -12,6 +12,10 @@ import {
   ArrowUpRight,
   Moon,
   Clock,
+  TrendingUp,
+  Trophy,
+  Plus,
+  Check,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -52,6 +56,24 @@ const WEEK = [
   { d: "F", done: false },
   { d: "S", done: false },
   { d: "S", done: false },
+];
+
+const TREND = [9.4, 11.2, 10.8, 13.6, 12.9, 15.1, 16.4, 12.4];
+
+const LIFTS = [
+  { name: "Incline Bench", scheme: "4 × 6", load: "72.5 kg", pr: true },
+  { name: "Overhead Press", scheme: "4 × 8", load: "45 kg" },
+  { name: "Weighted Dip", scheme: "3 × 10", load: "+20 kg" },
+  { name: "Cable Fly", scheme: "3 × 12", load: "17.5 kg" },
+  { name: "Lateral Raise", scheme: "4 × 15", load: "12 kg" },
+  { name: "Triceps Rope", scheme: "3 × 15", load: "27 kg" },
+];
+
+const QUICK_FOOD = [
+  { name: "Whey shake", p: 28 },
+  { name: "Chicken 150g", p: 46 },
+  { name: "Greek yogurt", p: 20 },
+  { name: "4 eggs", p: 24 },
 ];
 
 /* ---------- primitives ---------- */
@@ -132,18 +154,70 @@ function Stat({
   );
 }
 
+function Section({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <section className={`rise ${className}`} style={{ animationDelay: `${delay}ms` }}>
+      {children}
+    </section>
+  );
+}
+
+function Sparkline({ data }: { data: number[] }) {
+  const max = Math.max(...data);
+  return (
+    <div className="flex h-14 items-end gap-1.5">
+      {data.map((v, i) => {
+        const last = i === data.length - 1;
+        return (
+          <div key={i} className="flex-1">
+            <div
+              className={
+                last
+                  ? "w-full rounded-t-sm bg-primary"
+                  : "w-full rounded-t-sm bg-border-strong"
+              }
+              style={{ height: `${(v / max) * 56}px` }}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 /* ---------- screen ---------- */
 
 function HomeScreen() {
   const [active, setActive] = useState("Home");
+  const [logged, setLogged] = useState<string[]>([]);
+
+  const toggleFood = (name: string) =>
+    setLogged((prev) =>
+      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name],
+    );
+
+  const bonusProtein = QUICK_FOOD.filter((f) => logged.includes(f.name)).reduce(
+    (sum, f) => sum + f.p,
+    0,
+  );
+  const protein = 86 + bonusProtein;
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background">
       {/* HERO */}
       <header className="ember-wash grain relative overflow-hidden px-5 pb-8 pt-6">
+        <span className="ghost-numeral absolute -right-3 top-16">02</span>
         <div className="relative z-10">
           <div className="flex items-center justify-between">
-            <span className="label-eyebrow text-foreground/70">
+            <span className="label-eyebrow pulse-dot flex items-center text-foreground/70">
               Wed · Week 3
             </span>
             <div className="flex items-center gap-1.5">
@@ -156,7 +230,7 @@ function HomeScreen() {
             </div>
           </div>
 
-          <p className="mt-7 label-eyebrow text-primary">Session 02 / 04</p>
+          <p className="label-eyebrow mt-7 text-primary">Session 02 / 04</p>
           <h1 className="display-hero mt-2">
             Push
             <br />
@@ -179,7 +253,7 @@ function HomeScreen() {
               <div
                 key={i}
                 className={[
-                  "flex h-9 flex-1 flex-col items-center justify-center rounded-lg border text-[10px] font-bold uppercase",
+                  "flex h-9 flex-1 items-center justify-center rounded-lg border text-[10px] font-bold uppercase",
                   d.done
                     ? "border-primary bg-primary/20 text-primary"
                     : d.today
@@ -187,7 +261,7 @@ function HomeScreen() {
                       : "border-border text-muted-foreground",
                 ].join(" ")}
               >
-                {d.d}
+                {d.done ? <Check className="size-3.5" /> : d.d}
               </div>
             ))}
           </div>
@@ -195,8 +269,8 @@ function HomeScreen() {
       </header>
 
       <main className="flex-1 space-y-3 px-5 pb-36">
-        {/* volume */}
-        <section className="surface rounded-3xl p-5">
+        {/* volume + trend */}
+        <Section delay={40} className="surface rounded-3xl p-5">
           <Rail
             label="Weekly volume"
             value={12400}
@@ -204,20 +278,68 @@ function HomeScreen() {
             unit="kg"
             tone="primary"
           />
-          <p className="mt-3 text-xs text-muted-foreground">
-            69% of target with 3 sessions left — you&apos;re on pace.
-          </p>
-        </section>
+          <div className="mt-5">
+            <div className="flex items-center justify-between">
+              <span className="label-eyebrow">8-week trend</span>
+              <span className="flex items-center gap-1 font-mono text-[11px] text-primary">
+                <TrendingUp className="size-3.5" /> +32%
+              </span>
+            </div>
+            <div className="mt-2">
+              <Sparkline data={TREND} />
+            </div>
+          </div>
+        </Section>
 
         {/* stats grid */}
-        <section className="hairline-grid grid grid-cols-3 bg-card/60">
+        <Section delay={80} className="hairline-grid grid grid-cols-3 bg-card/60">
           <Stat label="Sessions" value="1" unit="/4" pct={25} />
           <Stat label="Kcal" value="1.2" unit="k/3.3k" pct={35} tone="xp" />
-          <Stat label="Protein" value="86" unit="/141g" pct={61} tone="fuel" />
-        </section>
+          <Stat
+            label="Protein"
+            value={String(protein)}
+            unit="/141g"
+            pct={(protein / 141) * 100}
+            tone="fuel"
+          />
+        </Section>
+
+        {/* today's lifts */}
+        <Section delay={120} className="surface rounded-3xl p-5">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl leading-none">The plan</h2>
+            <span className="font-mono text-[11px] text-muted-foreground">
+              24 sets
+            </span>
+          </div>
+          <ul className="mt-4 divide-y divide-border">
+            {LIFTS.map((l, i) => (
+              <li key={l.name} className="flex items-center gap-3 py-3">
+                <span className="w-5 font-mono text-[11px] text-muted-foreground tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold">
+                    {l.name}
+                    {l.pr ? (
+                      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-xp/15 px-1.5 py-0.5 align-middle text-[9px] font-bold uppercase tracking-wider text-xp">
+                        <Trophy className="size-2.5" /> PR
+                      </span>
+                    ) : null}
+                  </p>
+                  <p className="font-mono text-[11px] text-muted-foreground">
+                    {l.scheme} · {l.load}
+                  </p>
+                </div>
+                <div className="h-6 w-px bg-border" />
+                <span className="label-eyebrow text-primary">Go</span>
+              </li>
+            ))}
+          </ul>
+        </Section>
 
         {/* fuel */}
-        <section className="surface rounded-3xl p-5">
+        <Section delay={160} className="surface rounded-3xl p-5">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl leading-none">Fuel</h2>
             <button className="flex items-center gap-1 rounded-full border border-border-strong px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider">
@@ -225,14 +347,39 @@ function HomeScreen() {
             </button>
           </div>
           <div className="mt-5 space-y-4">
-            <Rail label="Protein" value={86} target={141} />
+            <Rail label="Protein" value={protein} target={141} />
             <Rail label="Carbs" value={210} target={380} />
             <Rail label="Fat" value={44} target={95} />
           </div>
-        </section>
+
+          <p className="label-eyebrow mt-5">One tap</p>
+          <div className="scroll-row mt-2 -mx-1 px-1">
+            {QUICK_FOOD.map((f) => {
+              const on = logged.includes(f.name);
+              return (
+                <button
+                  key={f.name}
+                  onClick={() => toggleFood(f.name)}
+                  className={[
+                    "flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-semibold transition-colors",
+                    on
+                      ? "border-fuel bg-fuel/15 text-fuel"
+                      : "border-border-strong text-foreground",
+                  ].join(" ")}
+                >
+                  {on ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
+                  {f.name}
+                  <span className="font-mono text-[10px] text-muted-foreground">
+                    {f.p}p
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </Section>
 
         {/* quote */}
-        <section className="ember relative overflow-hidden rounded-3xl p-6">
+        <Section delay={200} className="ember relative overflow-hidden rounded-3xl p-6">
           <span className="pointer-events-none absolute -right-2 -top-8 font-display text-[8rem] leading-none opacity-20">
             &ldquo;
           </span>
@@ -242,24 +389,36 @@ function HomeScreen() {
           <p className="relative mt-3 text-[11px] font-bold uppercase tracking-[0.16em] opacity-70">
             Areviax · Daily
           </p>
-        </section>
+        </Section>
 
-        {/* recovery */}
-        <section className="rounded-3xl border border-border p-5">
-          <div className="flex items-center gap-2">
+        {/* recovery + sleep */}
+        <Section delay={240} className="grid grid-cols-2 gap-3">
+          <div className="rounded-3xl border border-border p-4">
             <Moon className="size-4 text-fuel" />
-            <span className="label-eyebrow text-fuel">Recovery</span>
+            <p className="label-eyebrow mt-2 text-fuel">Sleep</p>
+            <p className="stat-huge mt-2">
+              7.2<span className="font-mono text-xs text-muted-foreground">h</span>
+            </p>
+            <p className="mt-2 text-[11px] leading-snug text-muted-foreground">
+              48 min under your growth target.
+            </p>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Legs are 36 hours out — new contractile protein is still fusing. Keep
-            protein high, sleep long. Growth happens here.
-          </p>
-        </section>
+          <div className="rounded-3xl border border-border p-4">
+            <Dumbbell className="size-4 text-primary" />
+            <p className="label-eyebrow mt-2 text-primary">Legs</p>
+            <p className="stat-huge mt-2">
+              36<span className="font-mono text-xs text-muted-foreground">h</span>
+            </p>
+            <p className="mt-2 text-[11px] leading-snug text-muted-foreground">
+              Still fusing protein. Train upper today.
+            </p>
+          </div>
+        </Section>
       </main>
 
       {/* START bar + nav */}
       <div className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-md">
-        <div className="px-5 pb-2">
+        <div className="bg-gradient-to-t from-background via-background to-transparent px-5 pb-2 pt-6">
           <button className="ember grain flex w-full items-center justify-between rounded-2xl px-5 py-4 transition-transform active:scale-[0.98]">
             <span className="text-lg font-extrabold uppercase tracking-[0.18em]">
               Start session
@@ -275,6 +434,7 @@ function HomeScreen() {
                 <li key={label} className="flex-1">
                   <button
                     onClick={() => setActive(label)}
+                    aria-label={label}
                     className="flex w-full flex-col items-center gap-1.5 py-1"
                   >
                     <Icon
