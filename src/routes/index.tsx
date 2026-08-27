@@ -4,11 +4,7 @@ import {
   Flame,
   Star,
   Play,
-  Home,
   Dumbbell,
-  Coffee,
-  BarChart3,
-  MoreHorizontal,
   ArrowUpRight,
   Moon,
   Clock,
@@ -17,6 +13,8 @@ import {
   Plus,
   Check,
 } from "lucide-react";
+import { BottomNav } from "@/components/BottomNav";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
