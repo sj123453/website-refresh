@@ -4,11 +4,7 @@ import {
   Flame,
   Star,
   Play,
-  Home,
   Dumbbell,
-  Coffee,
-  BarChart3,
-  MoreHorizontal,
   ArrowUpRight,
   Moon,
   Clock,
@@ -17,6 +13,8 @@ import {
   Plus,
   Check,
 } from "lucide-react";
+import { BottomNav } from "@/components/BottomNav";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,14 +37,6 @@ export const Route = createFileRoute("/")({
 });
 
 /* ---------- data ---------- */
-
-const NAV = [
-  { icon: Home, label: "Home" },
-  { icon: Dumbbell, label: "Build" },
-  { icon: Coffee, label: "Fuel" },
-  { icon: BarChart3, label: "Progress" },
-  { icon: MoreHorizontal, label: "More" },
-];
 
 const WEEK = [
   { d: "M", done: true },
@@ -196,7 +186,6 @@ function Sparkline({ data }: { data: number[] }) {
 /* ---------- screen ---------- */
 
 function HomeScreen() {
-  const [active, setActive] = useState("Home");
   const [logged, setLogged] = useState<string[]>([]);
 
   const toggleFood = (name: string) =>
@@ -426,37 +415,8 @@ function HomeScreen() {
             <Play className="size-5 fill-current" />
           </button>
         </div>
-        <nav className="border-t border-border bg-background/90 px-3 pb-5 pt-2 backdrop-blur-xl">
-          <ul className="flex items-end justify-between">
-            {NAV.map(({ icon: Icon, label }) => {
-              const isActive = active === label;
-              return (
-                <li key={label} className="flex-1">
-                  <button
-                    onClick={() => setActive(label)}
-                    aria-label={label}
-                    className="flex w-full flex-col items-center gap-1.5 py-1"
-                  >
-                    <Icon
-                      className={
-                        isActive
-                          ? "size-5 text-primary"
-                          : "size-5 text-muted-foreground"
-                      }
-                    />
-                    <span
-                      className={
-                        isActive
-                          ? "h-1 w-1 rounded-full bg-primary"
-                          : "h-1 w-1 rounded-full bg-transparent"
-                      }
-                    />
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <BottomNav active="Home" />
+
       </div>
     </div>
   );
