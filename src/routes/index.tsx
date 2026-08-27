@@ -38,14 +38,6 @@ export const Route = createFileRoute("/")({
 
 /* ---------- data ---------- */
 
-const NAV = [
-  { icon: Home, label: "Home" },
-  { icon: Dumbbell, label: "Build" },
-  { icon: Coffee, label: "Fuel" },
-  { icon: BarChart3, label: "Progress" },
-  { icon: MoreHorizontal, label: "More" },
-];
-
 const WEEK = [
   { d: "M", done: true },
   { d: "T", done: false },
@@ -194,7 +186,6 @@ function Sparkline({ data }: { data: number[] }) {
 /* ---------- screen ---------- */
 
 function HomeScreen() {
-  const [active, setActive] = useState("Home");
   const [logged, setLogged] = useState<string[]>([]);
 
   const toggleFood = (name: string) =>
