@@ -109,10 +109,13 @@
 }
 
 @utility surface {
+  position: relative;
   background-image: var(--gradient-card);
   border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
+  border-top-color: var(--color-gold-soft);
+  box-shadow: var(--shadow-card), inset 0 1px 0 0 oklch(0.82 0.11 84 / 0.12);
 }
+
 
 @utility ember {
   background-image: var(--gradient-ember);
