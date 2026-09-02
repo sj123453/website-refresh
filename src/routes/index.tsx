@@ -14,7 +14,7 @@ import {
   Check,
 } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
-import { GreekMark, Meander } from "@/components/GreekMark";
+import { GreekMark, Meander, SectionTitle } from "@/components/GreekMark";
 
 
 export const Route = createFileRoute("/")({
@@ -201,10 +201,10 @@ function HomeScreen() {
   const protein = 86 + bonusProtein;
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background">
+    <div className="marble mx-auto flex min-h-screen w-full max-w-md flex-col">
       {/* HERO */}
-      <header className="ember-wash grain colonnade temple-glow relative overflow-hidden px-5 pb-8 pt-5">
-        <span className="ghost-numeral absolute -right-3 top-16">02</span>
+      <header className="ember-wash grain colonnade temple-glow pediment laurel-watermark relative overflow-hidden px-5 pb-8 pt-6">
+        <span className="ghost-numeral absolute -right-3 top-16 font-serif">Β</span>
         <div className="relative z-10">
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2">
@@ -259,7 +259,7 @@ function HomeScreen() {
               </div>
             ))}
           </div>
-          <Meander className="mt-6" />
+          <Meander bold className="mt-6" />
         </div>
       </header>
 
@@ -301,12 +301,14 @@ function HomeScreen() {
 
         {/* today's lifts */}
         <Section delay={120} className="surface rounded-3xl p-5">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl leading-none">The plan</h2>
-            <span className="font-mono text-[11px] text-muted-foreground">
-              24 sets
-            </span>
-          </div>
+          <SectionTitle
+            numeral="Α"
+            right={
+              <span className="font-mono text-[11px] text-muted-foreground">24 sets</span>
+            }
+          >
+            The plan
+          </SectionTitle>
           <ul className="mt-4 divide-y divide-border">
             {LIFTS.map((l, i) => (
               <li key={l.name} className="flex items-center gap-3 py-3">
@@ -336,7 +338,7 @@ function HomeScreen() {
         {/* fuel */}
         <Section delay={160} className="surface rounded-3xl p-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl leading-none">Fuel</h2>
+            <h2 className="section-title">Fuel</h2>
             <button className="flex items-center gap-1 rounded-full border border-border-strong px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider">
               Log food <ArrowUpRight className="size-3.5" />
             </button>
