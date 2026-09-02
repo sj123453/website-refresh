@@ -44,6 +44,9 @@
   --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
   --font-sans: "Barlow", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
 }
 
 :root {
@@ -72,6 +75,8 @@
   --border-strong: oklch(0.4 0.03 45);
   --input: oklch(0.3 0.014 48);
   --ring: oklch(0.68 0.2 42);
+  --gold: oklch(0.82 0.11 84);
+  --gold-soft: oklch(0.52 0.07 84);
 
   --gradient-ember: linear-gradient(135deg, oklch(0.72 0.2 48), oklch(0.62 0.21 32));
   --gradient-card: linear-gradient(
@@ -250,4 +255,86 @@
     scroll-snap-align: start;
     flex: 0 0 auto;
   }
+}
+
+/* --- greek / classical layer (matches the areviax.com brand) --- */
+
+@utility serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+@utility gold-text {
+  color: var(--color-gold);
+}
+
+@utility wordmark {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-foreground);
+}
+
+/* greek key / meander hairline */
+@utility meander {
+  height: 10px;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(var(--color-gold) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-gold) 1px, transparent 1px);
+  background-size:
+    12px 10px,
+    12px 5px;
+  background-position:
+    0 0,
+    0 0;
+  mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+}
+
+/* fluted marble columns fading behind heroes */
+@utility colonnade {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.16;
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent 0 10px,
+      oklch(0.9 0.02 70 / 0.5) 10px 11px,
+      transparent 11px 14px,
+      oklch(0.9 0.02 70 / 0.22) 14px 15px
+    );
+    mask-image: linear-gradient(180deg, black, transparent 72%);
+  }
+}
+
+@utility temple-glow {
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -30%;
+    width: 22rem;
+    height: 22rem;
+    translate: -50% 0;
+    border-radius: 999px;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      oklch(0.72 0.2 48 / 0.35) 0%,
+      transparent 65%
+    );
+  }
+}
+
+@utility laurel-frame {
+  border: 1px solid var(--color-gold-soft);
+  box-shadow: inset 0 0 0 1px oklch(0.16 0.012 40), 0 0 26px -14px var(--color-gold);
 }
