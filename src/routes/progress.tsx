@@ -12,6 +12,7 @@ import {
   Target,
 } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
+import { GreekMark, Meander } from "@/components/GreekMark";
 
 export const Route = createFileRoute("/progress")({
   head: () => ({
@@ -153,7 +154,7 @@ function ProgressScreen() {
     <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background">
       {/* thin bar — no wasted viewport */}
       <div className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/85 px-5 py-2.5 backdrop-blur-xl">
-        <span className="label-eyebrow text-foreground">Progress</span>
+        <span className="flex items-center gap-2"><GreekMark className="size-5 text-gold" /><span className="wordmark text-[11px]">Areviax</span></span>
         <div className="flex items-center gap-1.5">
           <span className="flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground">
             <Flame className="size-3" /> 2
@@ -165,13 +166,13 @@ function ProgressScreen() {
       </div>
 
       {/* HERO — one number that matters */}
-      <header className="ember-wash grain relative overflow-hidden px-5 pb-7 pt-6">
+      <header className="ember-wash grain colonnade temple-glow relative overflow-hidden px-5 pb-7 pt-6">
         <span className="ghost-numeral absolute -right-4 top-10">12</span>
         <div className="relative z-10">
           <p className="label-eyebrow text-primary">Total volume · {range}</p>
           <h1 className="display-hero mt-2">
             {total.toFixed(0)}
-            <span className="text-outline">t</span>
+            <span className="serif-accent gold-text text-[0.7em]">t</span>
           </h1>
           <div className="mt-3 flex items-center gap-3 font-mono text-[11px] text-muted-foreground">
             <span
@@ -205,6 +206,7 @@ function ProgressScreen() {
             ))}
           </div>
         </div>
+        <Meander className="mt-5" />
       </header>
 
       <main className="flex-1 space-y-3 px-5 pb-28">

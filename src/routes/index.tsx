@@ -14,6 +14,7 @@ import {
   Check,
 } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
+import { GreekMark, Meander } from "@/components/GreekMark";
 
 
 export const Route = createFileRoute("/")({
@@ -202,12 +203,13 @@ function HomeScreen() {
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background">
       {/* HERO */}
-      <header className="ember-wash grain relative overflow-hidden px-5 pb-8 pt-6">
+      <header className="ember-wash grain colonnade temple-glow relative overflow-hidden px-5 pb-8 pt-5">
         <span className="ghost-numeral absolute -right-3 top-16">02</span>
         <div className="relative z-10">
           <div className="flex items-center justify-between">
-            <span className="label-eyebrow pulse-dot flex items-center text-foreground/70">
-              Wed · Week 3
+            <span className="flex items-center gap-2">
+              <GreekMark className="size-6 text-gold" />
+              <span className="wordmark">Areviax</span>
             </span>
             <div className="flex items-center gap-1.5">
               <span className="flex items-center gap-1 rounded-full bg-primary px-2.5 py-1 text-[11px] font-bold text-primary-foreground">
@@ -219,12 +221,15 @@ function HomeScreen() {
             </div>
           </div>
 
-          <p className="label-eyebrow mt-7 text-primary">Session 02 / 04</p>
+          <p className="label-eyebrow pulse-dot mt-6 flex items-center text-foreground/70">
+            Wed · Week 3 · Session 02 / 04
+          </p>
           <h1 className="display-hero mt-2">
             Push
             <br />
-            <span className="text-outline">Upper</span>
+            <span className="serif-accent gold-text text-[0.8em]">upper</span>
           </h1>
+
 
           <div className="mt-4 flex items-center gap-4 font-mono text-[11px] text-muted-foreground">
             <span className="flex items-center gap-1">
@@ -254,6 +259,7 @@ function HomeScreen() {
               </div>
             ))}
           </div>
+          <Meander className="mt-6" />
         </div>
       </header>
 
@@ -372,11 +378,11 @@ function HomeScreen() {
           <span className="pointer-events-none absolute -right-2 -top-8 font-display text-[8rem] leading-none opacity-20">
             &ldquo;
           </span>
-          <p className="relative text-2xl font-bold italic leading-tight">
+          <p className="serif-accent relative text-[1.9rem] leading-[1.15]">
             Nobody ever regretted the workout they finished.
           </p>
           <p className="relative mt-3 text-[11px] font-bold uppercase tracking-[0.16em] opacity-70">
-            Areviax · Daily
+            Areviax · Stoic daily
           </p>
         </Section>
 

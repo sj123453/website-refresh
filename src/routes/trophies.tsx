@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
+import { GreekMark, Meander } from "@/components/GreekMark";
 
 export const Route = createFileRoute("/trophies")({
   head: () => ({
@@ -249,7 +250,7 @@ function TrophyScreen() {
           to="/progress"
           className="label-eyebrow flex items-center gap-1.5 text-foreground"
         >
-          <ArrowLeft className="size-3.5" /> Trophies
+          <ArrowLeft className="size-3.5" /> <GreekMark className="size-5 text-gold" /> <span className="wordmark text-[11px]">Trophies</span>
         </Link>
         <div className="flex items-center gap-1.5">
           <span className="flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground">
@@ -262,13 +263,13 @@ function TrophyScreen() {
       </div>
 
       {/* HERO */}
-      <header className="ember-wash grain relative overflow-hidden px-5 pb-7 pt-6">
+      <header className="ember-wash grain colonnade temple-glow relative overflow-hidden px-5 pb-7 pt-6">
         <span className="ghost-numeral absolute -right-4 top-10">09</span>
         <div className="relative z-10">
-          <p className="label-eyebrow text-primary">Trophy room</p>
+          <p className="label-eyebrow text-gold">Trophy room</p>
           <h1 className="display-hero mt-2">
             {earned}
-            <span className="text-outline">/{BADGES.length}</span>
+            <span className="serif-accent gold-text text-[0.6em]">/{BADGES.length}</span>
           </h1>
           <div className="mt-3 flex items-center gap-3 font-mono text-[11px] text-muted-foreground">
             <span className="flex items-center gap-1 text-xp">
@@ -283,6 +284,7 @@ function TrophyScreen() {
             />
           </div>
         </div>
+        <Meander className="mt-5" />
       </header>
 
       <main className="flex-1 space-y-3 px-5 pb-28">
