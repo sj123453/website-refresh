@@ -244,7 +244,7 @@ function TrophyScreen() {
     .sort((a, b) => b.progress / b.goal - a.progress / a.goal)[0];
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background">
+    <div className="mx-auto marble flex min-h-screen w-full max-w-md flex-col">
       <div className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/85 px-5 py-2.5 backdrop-blur-xl">
         <Link
           to="/progress"
@@ -263,8 +263,8 @@ function TrophyScreen() {
       </div>
 
       {/* HERO */}
-      <header className="ember-wash grain colonnade temple-glow relative overflow-hidden px-5 pb-7 pt-6">
-        <span className="ghost-numeral absolute -right-4 top-10">09</span>
+      <header className="ember-wash grain colonnade temple-glow pediment laurel-watermark relative overflow-hidden px-5 pb-7 pt-6">
+        <span className="ghost-numeral absolute -right-4 top-10 font-serif">Θ</span>
         <div className="relative z-10">
           <p className="label-eyebrow text-gold">Trophy room</p>
           <h1 className="display-hero mt-2">
@@ -284,7 +284,7 @@ function TrophyScreen() {
             />
           </div>
         </div>
-        <Meander className="mt-5" />
+        <Meander bold className="mt-5" />
       </header>
 
       <main className="flex-1 space-y-3 px-5 pb-28">
@@ -297,7 +297,7 @@ function TrophyScreen() {
                 {Math.round((next.progress / next.goal) * 100)}%
               </span>
             </div>
-            <h2 className="mt-2 text-3xl leading-none">{next.name}</h2>
+            <h2 className="section-title mt-2 text-4xl">{next.name}</h2>
             <p className="mt-2 text-[11px] leading-snug text-muted-foreground">
               {next.detail} — {next.goal - next.progress}
               {next.unit} left.
@@ -338,7 +338,7 @@ function TrophyScreen() {
 
         {/* recent activity */}
         <Section delay={160} className="surface rounded-3xl p-5">
-          <h2 className="text-2xl leading-none">Latest</h2>
+          <h2 className="section-title flex items-baseline gap-2"><span className="greek-numeral">Ε</span>Latest</h2>
           <ul className="mt-4 divide-y divide-border">
             {BADGES.filter((b) => b.earnedOn)
               .slice(0, 3)

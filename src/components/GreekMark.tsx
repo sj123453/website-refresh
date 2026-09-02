@@ -45,6 +45,39 @@ export function GreekMark({ className = "size-7" }: { className?: string }) {
 }
 
 /** Greek-key hairline divider. */
-export function Meander({ className = "" }: { className?: string }) {
-  return <div aria-hidden="true" className={`meander ${className}`} />;
+export function Meander({
+  className = "",
+  bold = false,
+}: {
+  className?: string;
+  bold?: boolean;
+}) {
+  return (
+    <div aria-hidden="true" className={`${bold ? "meander-bold" : "meander"} ${className}`} />
+  );
 }
+
+/** Serif section heading with a Greek numeral marker and gold rule. */
+export function SectionTitle({
+  children,
+  numeral,
+  right,
+}: {
+  children: React.ReactNode;
+  numeral?: string;
+  right?: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="flex items-end justify-between gap-3">
+        <h2 className="section-title flex items-baseline gap-2">
+          {numeral ? <span className="greek-numeral">{numeral}</span> : null}
+          {children}
+        </h2>
+        {right}
+      </div>
+      <div className="rule-gold mt-2" />
+    </div>
+  );
+}
+

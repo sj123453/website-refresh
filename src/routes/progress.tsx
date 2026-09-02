@@ -12,7 +12,7 @@ import {
   Target,
 } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
-import { GreekMark, Meander } from "@/components/GreekMark";
+import { GreekMark, Meander, SectionTitle } from "@/components/GreekMark";
 
 export const Route = createFileRoute("/progress")({
   head: () => ({
@@ -151,7 +151,7 @@ function ProgressScreen() {
   const change = first ? Math.round(((last - first) / first) * 100) : 0;
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background">
+    <div className="mx-auto marble flex min-h-screen w-full max-w-md flex-col">
       {/* thin bar — no wasted viewport */}
       <div className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/85 px-5 py-2.5 backdrop-blur-xl">
         <span className="flex items-center gap-2"><GreekMark className="size-5 text-gold" /><span className="wordmark text-[11px]">Areviax</span></span>
@@ -166,8 +166,8 @@ function ProgressScreen() {
       </div>
 
       {/* HERO — one number that matters */}
-      <header className="ember-wash grain colonnade temple-glow relative overflow-hidden px-5 pb-7 pt-6">
-        <span className="ghost-numeral absolute -right-4 top-10">12</span>
+      <header className="ember-wash grain colonnade temple-glow pediment laurel-watermark relative overflow-hidden px-5 pb-7 pt-6">
+        <span className="ghost-numeral absolute -right-4 top-10 font-serif">ΙΒ</span>
         <div className="relative z-10">
           <p className="label-eyebrow text-primary">Total volume · {range}</p>
           <h1 className="display-hero mt-2">
@@ -213,7 +213,7 @@ function ProgressScreen() {
         {/* volume chart */}
         <Section delay={40} className="surface rounded-3xl p-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl leading-none">Tonnage</h2>
+            <h2 className="section-title flex items-baseline gap-2"><span className="greek-numeral">Α</span>Tonnage</h2>
             <span className="font-mono text-[11px] text-muted-foreground">
               tonnes / week
             </span>
@@ -230,7 +230,7 @@ function ProgressScreen() {
         {/* PRs — the real signal, up top */}
         <Section delay={80} className="surface rounded-3xl p-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl leading-none">Records</h2>
+            <h2 className="section-title flex items-baseline gap-2"><span className="greek-numeral">Β</span>Records</h2>
             <span className="font-mono text-[11px] text-primary">4 this month</span>
           </div>
           <ul className="mt-4 divide-y divide-border">
@@ -275,7 +275,7 @@ function ProgressScreen() {
         {/* consistency grid */}
         <Section delay={160} className="surface rounded-3xl p-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl leading-none">Consistency</h2>
+            <h2 className="section-title flex items-baseline gap-2"><span className="greek-numeral">Γ</span>Consistency</h2>
             <span className="font-mono text-[11px] text-muted-foreground">
               4 weeks · 14/16
             </span>
@@ -307,7 +307,7 @@ function ProgressScreen() {
 
         {/* muscle split */}
         <Section delay={200} className="surface rounded-3xl p-5">
-          <h2 className="text-2xl leading-none">Balance</h2>
+          <h2 className="section-title flex items-baseline gap-2"><span className="greek-numeral">Δ</span>Balance</h2>
           <div className="mt-4 space-y-3.5">
             {SPLIT.map((s) => (
               <div key={s.group}>

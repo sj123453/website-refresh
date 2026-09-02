@@ -109,10 +109,13 @@
 }
 
 @utility surface {
+  position: relative;
   background-image: var(--gradient-card);
   border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
+  border-top-color: var(--color-gold-soft);
+  box-shadow: var(--shadow-card), inset 0 1px 0 0 oklch(0.82 0.11 84 / 0.12);
 }
+
 
 @utility ember {
   background-image: var(--gradient-ember);
@@ -280,25 +283,26 @@
   color: var(--color-foreground);
 }
 
-/* greek key / meander hairline */
+/* greek key / meander band */
 @utility meander {
-  height: 9px;
-  border-top: 1px solid var(--color-gold-soft);
-  border-bottom: 1px solid var(--color-gold-soft);
-  opacity: 0.7;
-  background-image:
-    repeating-linear-gradient(
-      90deg,
-      var(--color-gold-soft) 0 1px,
-      transparent 1px 7px,
-      var(--color-gold-soft) 7px 8px,
-      transparent 8px 16px
-    );
-  background-size: 16px 5px;
+  height: 16px;
+  opacity: 0.9;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16' viewBox='0 0 32 16' fill='none' stroke='%23b08c4f' stroke-width='1.6'%3E%3Cpath d='M0 1h32M0 15h32'/%3E%3Cpath d='M3 12V4h10v5H7v-2'/%3E%3Cpath d='M19 4v8h10V7h-6v2'/%3E%3C/svg%3E");
   background-repeat: repeat-x;
-  background-position: 0 1px;
-  mask-image: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
+  background-size: 32px 16px;
+  mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
 }
+
+/* thicker double-key band for hero footers */
+@utility meander-bold {
+  height: 22px;
+  opacity: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='22' viewBox='0 0 40 22' fill='none' stroke='%23d6ab63' stroke-width='2'%3E%3Cpath d='M0 1.5h40M0 20.5h40'/%3E%3Cpath d='M4 17V5h13v7h-8v-3'/%3E%3Cpath d='M23 5v12h13v-7h-8v3'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 40px 22px;
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
 
 /* fluted marble columns fading behind heroes */
 @utility colonnade {
@@ -341,4 +345,124 @@
 @utility laurel-frame {
   border: 1px solid var(--color-gold-soft);
   box-shadow: inset 0 0 0 1px oklch(0.16 0.012 40), 0 0 26px -14px var(--color-gold);
+}
+
+/* --- stronger greek layer --- */
+
+/* carved stone / marble field behind the whole app */
+@utility marble {
+  background-color: var(--color-background);
+  background-image:
+    linear-gradient(
+      100deg,
+      transparent 0 46%,
+      oklch(0.9 0.02 70 / 0.035) 46% 47%,
+      transparent 47% 100%
+    ),
+    linear-gradient(
+      72deg,
+      transparent 0 22%,
+      oklch(0.9 0.02 70 / 0.025) 22% 23%,
+      transparent 23% 100%
+    ),
+    radial-gradient(140% 60% at 50% 0%, oklch(0.72 0.2 48 / 0.1), transparent 70%);
+  background-size: 340px 100%, 220px 100%, 100% 100%;
+}
+
+/* temple pediment: triangular gold roofline over a hero */
+@utility pediment {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -1px;
+    width: 132%;
+    aspect-ratio: 6 / 1;
+    translate: -50% 0;
+    pointer-events: none;
+    border-top: 1px solid var(--color-gold-soft);
+    background: linear-gradient(
+      to bottom,
+      oklch(0.82 0.11 84 / 0.14),
+      transparent 70%
+    );
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    opacity: 0.85;
+  }
+}
+
+/* laurel wreath watermark, sits behind hero content */
+@utility laurel-watermark {
+  &::after {
+    content: "";
+    position: absolute;
+    right: -3.5rem;
+    top: -2.5rem;
+    width: 18rem;
+    height: 18rem;
+    pointer-events: none;
+    opacity: 0.09;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%23e9c98a' stroke-width='1.4'%3E%3Cpath d='M50 96C24 88 10 66 14 40 17 22 30 8 44 4'/%3E%3Cpath d='M50 96c26-8 40-30 36-56C83 22 70 8 56 4'/%3E%3Cg%3E%3Cellipse cx='20' cy='30' rx='7' ry='3' transform='rotate(-38 20 30)'/%3E%3Cellipse cx='17' cy='45' rx='7' ry='3' transform='rotate(-25 17 45)'/%3E%3Cellipse cx='19' cy='60' rx='7' ry='3' transform='rotate(-12 19 60)'/%3E%3Cellipse cx='26' cy='74' rx='7' ry='3' transform='rotate(8 26 74)'/%3E%3Cellipse cx='80' cy='30' rx='7' ry='3' transform='rotate(38 80 30)'/%3E%3Cellipse cx='83' cy='45' rx='7' ry='3' transform='rotate(25 83 45)'/%3E%3Cellipse cx='81' cy='60' rx='7' ry='3' transform='rotate(12 81 60)'/%3E%3Cellipse cx='74' cy='74' rx='7' ry='3' transform='rotate(-8 74 74)'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+/* serif carved section title with gold rule + greek letter marker */
+@utility section-title {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-foreground);
+}
+
+@utility rule-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-soft),
+    transparent 85%
+  );
+  opacity: 0.8;
+}
+
+/* greek numeral badge */
+@utility greek-numeral {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: var(--color-gold);
+}
+
+/* fluted column edges flanking a block */
+@utility fluted {
+  position: relative;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--color-gold-soft) 0 1px,
+      transparent 1px 4px
+    );
+    mask-image: linear-gradient(180deg, transparent, black 25%, black 75%, transparent);
+  }
+  &::before {
+    left: 0;
+  }
+  &::after {
+    right: 0;
+  }
 }
