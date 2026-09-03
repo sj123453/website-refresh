@@ -11,7 +11,7 @@ import {
 const NAV: { icon: LucideIcon; label: string; to: string }[] = [
   { icon: Home, label: "Home", to: "/" },
   { icon: Dumbbell, label: "Build", to: "/" },
-  { icon: Coffee, label: "Fuel", to: "/" },
+  { icon: Coffee, label: "Fuel", to: "/nutrition" },
   { icon: BarChart3, label: "Progress", to: "/progress" },
   { icon: Trophy, label: "Trophies", to: "/trophies" },
 ];
