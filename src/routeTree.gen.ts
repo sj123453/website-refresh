@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as NutritionRouteImport } from './routes/nutrition'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as TrophiesRouteImport } from './routes/trophies'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NutritionRoute = NutritionRouteImport.update({
+  id: '/nutrition',
+  path: '/nutrition',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProgressRoute = ProgressRouteImport.update({
@@ -31,30 +37,34 @@ const TrophiesRoute = TrophiesRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/nutrition': typeof NutritionRoute
   '/progress': typeof ProgressRoute
   '/trophies': typeof TrophiesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/nutrition': typeof NutritionRoute
   '/progress': typeof ProgressRoute
   '/trophies': typeof TrophiesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/nutrition': typeof NutritionRoute
   '/progress': typeof ProgressRoute
   '/trophies': typeof TrophiesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/progress' | '/trophies'
+  fullPaths: '/' | '/nutrition' | '/progress' | '/trophies'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/progress' | '/trophies'
-  id: '__root__' | '/' | '/progress' | '/trophies'
+  to: '/' | '/nutrition' | '/progress' | '/trophies'
+  id: '__root__' | '/' | '/nutrition' | '/progress' | '/trophies'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  NutritionRoute: typeof NutritionRoute
   ProgressRoute: typeof ProgressRoute
   TrophiesRoute: typeof TrophiesRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nutrition': {
+      id: '/nutrition'
+      path: '/nutrition'
+      fullPath: '/nutrition'
+      preLoaderRoute: typeof NutritionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/progress': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  NutritionRoute: NutritionRoute,
   ProgressRoute: ProgressRoute,
   TrophiesRoute: TrophiesRoute,
 }
