@@ -225,10 +225,14 @@ function HomeScreen() {
             Wed · Week 3 · Session 02 / 04
           </p>
           <h1 className="display-hero mt-2">
-            Push
+            Hello,
             <br />
-            <span className="serif-accent gold-text text-[0.8em]">upper</span>
+            <span className="serif-accent gold-text text-[0.8em]">athlete</span>
           </h1>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Today is push upper — 6 lifts, 24 sets.
+          </p>
+
 
 
           <div className="mt-4 flex items-center gap-4 font-mono text-[11px] text-muted-foreground">
